@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAZY CAR: Strategic Brand Architecture Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            black: '#010204',
+                            blue: '#2563EB',
+                            green: '#22C55E',
+                            gray: '#6B7280'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F8FAFC; color: #0F172A; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glass-panel {
+            background: rgba(1, 2, 4, 0.95);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+<!-- Chosen Palette: Slate Light Background with Brand Black/Blue Accents -->
+<!-- Application Structure Plan: A tabbed dashboard interface designed to segment the Brand Blueprint into digestible, goal-oriented modules. The structure includes 'Identity', 'Design DNA', 'Operations Analytics', and 'Deployment Tech'. This non-linear exploration path allows users (e.g., developers, marketers, stakeholders) to instantly access the specific information they need without scrolling through a static document. The light overall background ensures adherence to systemic requirements while embedded dark 'glass' panels accurately represent the brand's aesthetic instructions. -->
+<!-- Visualization & Content Choices: Source Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1. Tiered Access Data -> Compare -> Doughnut Chart -> Hover tooltips -> Clearly shows customer segmentation -> Chart.js. 2. Dynamic Pricing vs Load -> Relationship/Trend -> Line Chart -> Interactive data points -> Illustrates the peak-load pricing algorithm mathematically -> Chart.js. NO SVG or Mermaid used. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-brand-black text-white flex items-center justify-center font-heading font-bold text-xl rounded shadow-md">EZ</div>
+                    <div>
+                        <h1 class="font-heading font-bold text-xl tracking-tight text-brand-black uppercase italic">Eazy Car LLC</h1>
+                        <p class="font-mono text-xs text-brand-blue uppercase tracking-widest">Brand Architecture & Blueprint</p>
+                    </div>
+                </div>
+                <nav class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0" id="tab-navigation">
+                    <button data-target="tab-identity" class="tab-btn active px-4 py-2 text-sm font-bold font-mono uppercase rounded bg-brand-blue text-white transition-colors whitespace-nowrap">&#128269; Identity</button>
+                    <button data-target="tab-design" class="tab-btn px-4 py-2 text-sm font-bold font-mono uppercase rounded bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors whitespace-nowrap">&#127912; Design DNA</button>
+                    <button data-target="tab-ops" class="tab-btn px-4 py-2 text-sm font-bold font-mono uppercase rounded bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors whitespace-nowrap">&#128202; Operations</button>
+                    <button data-target="tab-tech" class="tab-btn px-4 py-2 text-sm font-bold font-mono uppercase rounded bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors whitespace-nowrap">&#128187; Tech Stack</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <section id="tab-identity" class="tab-content active space-y-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-heading font-bold text-brand-black mb-2 italic">Executive Summary & Positioning</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">This section outlines the foundational identity of EAZY CAR LLC. It serves to orient stakeholders on the company's market position as a premium, futuristic mobility-as-a-service (MaaS) provider. Understanding this core value proposition is critical before engaging with the design and technical blueprints.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-panel p-8 rounded-2xl shadow-xl flex flex-col justify-center">
+                    <div class="text-brand-blue font-mono text-xs uppercase tracking-widest mb-4">&#9889; Brand Voice</div>
+                    <h3 class="font-heading font-bold text-4xl italic uppercase leading-none mb-6">Authoritative.<br>Tech-Forward.<br>Clandestine.</h3>
+                    <p class="text-gray-400 font-mono text-sm leading-relaxed border-l-2 border-brand-blue pl-4">We treat vehicle access as "asset deployment" rather than a simple rental. Our approach is decentralized, biometric-secure, and features ultra-low latency logistics.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">&#127758;</span>
+                            <h4 class="font-heading font-bold text-lg">Target Audience</h4>
+                        </div>
+                        <p class="text-gray-600 text-sm">High-net-worth individuals and corporate enterprise clients demanding seamless, high-performance transport solutions.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">&#128663;</span>
+                            <h4 class="font-heading font-bold text-lg">Fleet Strategy</h4>
+                        </div>
+                        <p class="text-gray-600 text-sm">High-performance electric and tactical vehicles utilizing a Cyberpunk-Industrial aesthetic.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-design" class="tab-content space-y-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-heading font-bold text-brand-black mb-2 italic">Visual & Aesthetic Parameters</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">This section details the strict design tokens required to recreate the Eazy Car digital experience. It provides interactive references for the color palette, typography, and visual effects extracted from the blueprint, ensuring developers and designers maintain absolute brand consistency.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-1 space-y-6">
+                    <h3 class="font-heading font-bold text-xl uppercase tracking-tight border-b border-gray-200 pb-2">Color Palette</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <div class="w-12 h-12 rounded bg-[#010204] shadow-inner"></div>
+                            <div>
+                                <div class="font-bold text-sm">Deep Space Black</div>
+                                <div class="font-mono text-xs text-gray-500">#010204</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <div class="w-12 h-12 rounded bg-[#2563EB] shadow-inner"></div>
+                            <div>
+                                <div class="font-bold text-sm">Electric Blue</div>
+                                <div class="font-mono text-xs text-gray-500">#2563EB</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <div class="w-12 h-12 rounded bg-[#22C55E] shadow-inner"></div>
+                            <div>
+                                <div class="font-bold text-sm">Tactical Green</div>
+                                <div class="font-mono text-xs text-gray-500">#22C55E</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <div class="w-12 h-12 rounded bg-[#6B7280] shadow-inner"></div>
+                            <div>
+                                <div class="font-bold text-sm">Muted Gray</div>
+                                <div class="font-mono text-xs text-gray-500">#6B7280</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-6">
+                    <h3 class="font-heading font-bold text-xl uppercase tracking-tight border-b border-gray-200 pb-2">Simulated Interface Example</h3>
+                    
+                    <div class="glass-panel p-8 rounded-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-blue rounded-full mix-blend-screen filter blur-[80px] opacity-20 pointer-events-none"></div>
+                        
+                        <div class="relative z-10 space-y-6">
+                            <div>
+                                <h1 class="font-heading font-bold text-4xl italic text-white uppercase tracking-tighter mb-2">Space Grotesk Heading</h1>
+                                <p class="font-mono text-sm text-brand-gray">Used for headings. Always italicized for forward motion.</p>
+                            </div>
+
+                            <div class="p-4 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-mono text-xs text-brand-green uppercase tracking-widest">&#10003; Node Status: Online</span>
+                                    <span class="font-mono text-xs text-white">JetBrains Mono</span>
+                                </div>
+                                <p class="font-mono text-sm text-gray-300">This is an example of the body typography. Monospaced fonts reinforce the terminal and coding aesthetic critical to the brand identity.</p>
+                            </div>
+
+                            <button class="bg-brand-blue hover:bg-blue-700 text-white font-mono font-bold uppercase tracking-widest text-xs px-6 py-3 rounded shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all active:scale-95">
+                                Deploy Asset &#8594;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="tab-ops" class="tab-content space-y-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-heading font-bold text-brand-black mb-2 italic">Operations & Architectural Analytics</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">This dashboard translates the business operations parameters into quantitative visualizations. It details the tiered access customer distribution and models the dynamic pricing algorithm based on peak grid load, allowing analysts to understand the economic structure of the Eazy Car network.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col">
+                    <h3 class="font-heading font-bold text-xl uppercase tracking-tight mb-2">Tiered Access Distribution</h3>
+                    <p class="text-sm text-gray-500 mb-6">Categorization of the active customer base across access tiers.</p>
+                    <div class="flex-grow flex items-center justify-center">
+                        <div class="chart-container w-full">
+                            <canvas id="tierChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-6 grid grid-cols-3 gap-2 text-center border-t border-gray-100 pt-4">
+                        <div>
+                            <div class="text-2xl font-bold font-mono text-gray-800">50%</div>
+                            <div class="text-[10px] font-bold uppercase text-gray-500">Standard</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold font-mono text-brand-blue">35%</div>
+                            <div class="text-[10px] font-bold uppercase text-brand-blue">Tactical</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold font-mono text-brand-green">15%</div>
+                            <div class="text-[10px] font-bold uppercase text-brand-green">Enterprise</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col">
+                    <h3 class="font-heading font-bold text-xl uppercase tracking-tight mb-2">Dynamic Pricing Matrix</h3>
+                    <p class="text-sm text-gray-500 mb-6">Algorithm showing price multipliers corresponding to network node load.</p>
+                    <div class="flex-grow flex items-center justify-center">
+                        <div class="chart-container w-full">
+                            <canvas id="pricingChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <p class="text-xs font-mono text-gray-600 leading-relaxed">
+                            <span class="font-bold text-brand-black uppercase">Logic:</span> As grid demand exceeds 70% capacity in hubs (NYC, Moscow), the dynamic pricing algorithm applies a multiplier to base deployment costs to regulate node availability.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-tech" class="tab-content space-y-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-heading font-bold text-brand-black mb-2 italic">Technical Stack & Deployment Strategy</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">This section provides engineering teams with the exact tools and deployment pathways required to build and host the platform. Interactive elements allow users to explore specific stack components and review step-by-step deployment options for zero-cost global hosting.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-4 space-y-4">
+                    <h3 class="font-heading font-bold text-lg uppercase mb-4">Core Architecture</h3>
+                    
+                    <div class="tech-item cursor-pointer bg-white p-4 rounded-xl border-l-4 border-brand-blue shadow-sm hover:shadow-md transition-all" data-desc="React.js or Next.js selected for extreme rendering speed, component reusability, and optimal SEO capabilities for public-facing assets.">
+                        <div class="font-bold text-brand-black flex justify-between items-center">
+                            Frontend Framework <span class="text-xs font-mono bg-blue-100 text-brand-blue px-2 py-1 rounded">React/Next</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-item cursor-pointer bg-white p-4 rounded-xl border-l-4 border-gray-300 shadow-sm hover:shadow-md transition-all" data-desc="Tailwind CSS utilized exclusively via utility classes for rapid development of the glassmorphic UI without bloated custom stylesheets.">
+                        <div class="font-bold text-brand-black flex justify-between items-center">
+                            Styling Engine <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">Tailwind CSS</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-item cursor-pointer bg-white p-4 rounded-xl border-l-4 border-gray-300 shadow-sm hover:shadow-md transition-all" data-desc="Lucide-React provides a comprehensive set of clean, minimalist vector icons that align perfectly with the cyber-industrial aesthetic.">
+                        <div class="font-bold text-brand-black flex justify-between items-center">
+                            Iconography <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">Lucide</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-item cursor-pointer bg-white p-4 rounded-xl border-l-4 border-gray-300 shadow-sm hover:shadow-md transition-all" data-desc="Framer Motion handles the physics-based animations, smooth slide-ins, and zoom effects critical for the premium interaction feel.">
+                        <div class="font-bold text-brand-black flex justify-between items-center">
+                            Motion Library <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">Framer Motion</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-item cursor-pointer bg-white p-4 rounded-xl border-l-4 border-brand-green shadow-sm hover:shadow-md transition-all" data-desc="Firebase Firestore (Free Tier) selected to manage real-time updates for Node Status, inventory availability, and biometric authentication data securely.">
+                        <div class="font-bold text-brand-black flex justify-between items-center">
+                            Database / Backend <span class="text-xs font-mono bg-green-100 text-brand-green px-2 py-1 rounded">Firestore</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 space-y-6">
+                    <div class="bg-gray-900 text-gray-300 p-6 rounded-2xl shadow-inner font-mono text-sm min-h-[120px] flex items-center">
+                        <p id="tech-description" class="leading-relaxed"><span class="text-brand-blue font-bold">System output:</span> Select an architectural component from the list to view its technical justification based on the blueprint specifications.</p>
+                    </div>
+
+                    <h3 class="font-heading font-bold text-lg uppercase pt-4">Zero-Cost Deployment Pathways</h3>
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div class="bg-white border border-gray-200 p-5 rounded-xl text-center hover:border-brand-blue transition-colors group">
+                            <div class="text-2xl mb-2">&#9650;</div>
+                            <h4 class="font-bold text-sm mb-2">Option A: Vercel</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-4">Best for Next.js</p>
+                            <ul class="text-xs text-left space-y-2 text-gray-600">
+                                <li>1. Push to GitHub repo</li>
+                                <li>2. Connect Vercel account</li>
+                                <li>3. Auto SSL & CDN active</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white border border-gray-200 p-5 rounded-xl text-center hover:border-brand-blue transition-colors group">
+                            <div class="text-2xl mb-2">&#128041;</div>
+                            <h4 class="font-bold text-sm mb-2">Option B: GitHub</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-4">Best for Static SPA</p>
+                            <ul class="text-xs text-left space-y-2 text-gray-600">
+                                <li>1. Navigate to Repo Settings</li>
+                                <li>2. Activate GitHub Pages</li>
+                                <li>3. Select main branch root</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white border border-gray-200 p-5 rounded-xl text-center hover:border-brand-blue transition-colors group">
+                            <div class="text-2xl mb-2">&#128293;</div>
+                            <h4 class="font-bold text-sm mb-2">Option C: Firebase</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-4">Best for DB Sync</p>
+                            <ul class="text-xs text-left space-y-2 text-gray-600">
+                                <li class="font-mono bg-gray-100 p-1 rounded">npm i -g firebase-tools</li>
+                                <li class="font-mono bg-gray-100 p-1 rounded">firebase init hosting</li>
+                                <li class="font-mono bg-gray-100 p-1 rounded">firebase deploy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="font-mono text-xs text-gray-400 uppercase tracking-widest">Eazy Car LLC Architecture Simulation Dashboard &copy; 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        const state = {
+            activeTab: 'tab-identity',
+            chartsRendered: false,
+            tierChartInstance: null,
+            pricingChartInstance: null
+        };
+
+        const initCharts = () => {
+            if (state.chartsRendered) return;
+
+            const tierCtx = document.getElementById('tierChart').getContext('2d');
+            state.tierChartInstance = new Chart(tierCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Standard', 'Tactical', 'Enterprise'],
+                    datasets: [{
+                        data: [50, 35, 15],
+                        backgroundColor: ['#6B7280', '#2563EB', '#22C55E'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#010204',
+                            titleFont: { family: 'JetBrains Mono', size: 11 },
+                            bodyFont: { family: 'JetBrains Mono', size: 13, weight: 'bold' },
+                            padding: 12,
+                            cornerRadius: 4,
+                            displayColors: true
+                        }
+                    }
+                }
+            });
+
+            const pricingCtx = document.getElementById('pricingChart').getContext('2d');
+            state.pricingChartInstance = new Chart(pricingCtx, {
+                type: 'line',
+                data: {
+                    labels: ['10%', '30%', '50%', '70%', '85%', '95%', '100%'],
+                    datasets: [{
+                        label: 'Price Multiplier',
+                        data: [1.0, 1.0, 1.0, 1.2, 1.8, 2.5, 3.0],
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#010204',
+                        pointBorderColor: '#2563EB',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 0.8,
+                            grid: { color: '#F3F4F6', drawBorder: false },
+                            ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#6B7280', callback: function(value) { return value + 'x'; } },
+                            title: { display: true, text: 'Cost Multiplier', font: { family: 'Space Grotesk', size: 12, weight: 'bold' } }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#6B7280' },
+                            title: { display: true, text: 'Network Node Load (%)', font: { family: 'Space Grotesk', size: 12, weight: 'bold' } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#010204',
+                            titleFont: { family: 'JetBrains Mono', size: 11 },
+                            bodyFont: { family: 'JetBrains Mono', size: 13, weight: 'bold' },
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Multiplier: ' + context.parsed.y + 'x';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            state.chartsRendered = true;
+        };
+
+        const setupNavigation = () => {
+            const buttons = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+                    
+                    buttons.forEach(b => {
+                        b.classList.remove('bg-brand-blue', 'text-white');
+                        b.classList.add('bg-gray-100', 'text-gray-600');
+                    });
+                    btn.classList.remove('bg-gray-100', 'text-gray-600');
+                    btn.classList.add('bg-brand-blue', 'text-white');
+
+                    contents.forEach(c => c.classList.remove('active'));
+                    document.getElementById(targetId).classList.add('active');
+
+                    if (targetId === 'tab-ops' && !state.chartsRendered) {
+                        initCharts();
+                    }
+                });
+            });
+        };
+
+        const setupTechInteractions = () => {
+            const items = document.querySelectorAll('.tech-item');
+            const descArea = document.getElementById('tech-description');
+
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    items.forEach(i => {
+                        i.classList.remove('border-brand-blue', 'border-brand-green');
+                        if(!i.classList.contains('border-gray-300')) i.classList.add('border-gray-300');
+                    });
+                    
+                    item.classList.remove('border-gray-300');
+                    if(item.querySelector('.bg-green-100')) {
+                        item.classList.add('border-brand-green');
+                    } else {
+                        item.classList.add('border-brand-blue');
+                    }
+
+                    const desc = item.getAttribute('data-desc');
+                    descArea.innerHTML = `<span class="text-brand-blue font-bold">System output:</span> ${desc}`;
+                });
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupNavigation();
+            setupTechInteractions();
+        });
+    </script>
+</body>
+</html>
