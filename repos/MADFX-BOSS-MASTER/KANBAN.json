@@ -1,0 +1,20 @@
+{
+  "sprint": 1,
+  "updated": "auto",
+  "backlog": [
+    {"id":"B001","title":"Harmonic signal engine","agent":"AGENT-SIGNAL","priority":"P0"},
+    {"id":"B002","title":"NestJS agent orchestrator","agent":"AGENT-CODER-B","priority":"P0"},
+    {"id":"B003","title":"MT5 EA Gartley entry","agent":"AGENT-CODER-B","priority":"P0"},
+    {"id":"B004","title":"Backtest pipeline 85% gate","agent":"AGENT-BACKTEST","priority":"P0"},
+    {"id":"B005","title":"React HQ dashboard","agent":"AGENT-CODER-A","priority":"P1"},
+    {"id":"B006","title":"ERC-20 BotTokenFactory","agent":"AGENT-CODER-C","priority":"P1"},
+    {"id":"B007","title":"GitHub Actions backtest cron","agent":"AGENT-DEVOPS","priority":"P1"},
+    {"id":"B008","title":"MAXAI-JARVIS scaffold","agent":"AGENT-CODER-A","priority":"P2"},
+    {"id":"B009","title":"VIRALOS IXT tokenomics","agent":"AGENT-CODER-C","priority":"P2"},
+    {"id":"B010","title":"Telegram hourly reporter","agent":"AGENT-REPORTER","priority":"P1"}
+  ],
+  "in_progress": [],
+  "review": [],
+  "done": [],
+  "blocked": []
+}
