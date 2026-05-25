@@ -1,0 +1,50 @@
+name: Backtest Automation
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6 hours
+  push:
+    paths:
+      - 'backtest/**'
+  pull_request:
+    paths:
+      - 'backtest/**'
+  workflow_dispatch:
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Backtest
+        id: run_script
+        run: |
+          # The script uses absolute paths /Users/madfxbossllc/repos/MADFX-BOSS-MASTER/backtest
+          # We need to override this or ensure the script works in GH Actions.
+          # Since we can't easily change the script's hardcoded paths without editing the file,
+          # we create a symbolic link to spoof the path structure.
+          sudo mkdir -p /Users/madfxbossllc/repos/MADFX-BOSS-MASTER/backtest
+          sudo ln -s $(pwd)/backtest /Users/madfxbossllc/repos/MADFX-BOSS-MASTER/backtest
+          
+          python3 backtest/backtest-runner.py > backtest_output.log 2>&1
+          cat backtest_output.log
+
+      - name: PR Comment
+        if: github.event_name == 'pull_request'
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: 'backtest_output.log'
+
+      - name: Webhook Summary
+        if: always()
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d "{\"text\": \"Backtest completed. Check logs for results.\"}" \
+          ${{ secrets.BACKTEST_WEBHOOK_URL }}
